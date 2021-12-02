@@ -21,14 +21,10 @@ export function create(tag, attribs, append) {
     }
     if(append) {
         if(Array.isArray(append)) {
-            let ar = append.flat()
-            for(let a=0; a<ar.length; a++) {
-                e.append(ar[a])
-            }
+            append.flat().forEach(a=>{e.append(a);})
         } else {
             e.append(append)
         }
-        
     }
     return e
 }
@@ -40,10 +36,7 @@ export function create(tag, attribs, append) {
  * @returns 
  */
 export function byId(id, src) {
-    if(!src) {
-        src = document
-    }
-    return src.getElementById(id)
+    return (src ? src : document).getElementById(id)
 }
 
 /**
@@ -53,15 +46,11 @@ export function byId(id, src) {
  * @param value - if given, also use =$value as a key
  * @returns 
  */
-export function byData(data, src, value) {
-    if(!src) {
-        src = document
-    }
-    if(value === undefined) {
-        return Array.from(src.querySelectorAll(`[data-${data}]`));
-    } else {
-        return Array.from(src.querySelectorAll(`[data-${data}="${value}"]`));
-    }
+export function byData(data, src, value) { // might work ? :)
+    return (value === undefined) ? 
+        Array.from((src ? src : document).querySelectorAll(`[data-${data}]`))
+        :
+        Array.from((src ? src : document).querySelectorAll(`[data-${data}="${value}"]`));
 }
 
 /**
