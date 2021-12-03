@@ -16,12 +16,12 @@ export function isObject(o) { return o && typeof o === 'object' && o.constructor
  */
 
 export function sortObjects(objs, by, asc) {
-	function order(a,b) {
+	function lt(a,b) {
 		a = objs[a][by];
 		b = objs[b][by];
 		return a < b ? -1 : a > b ? 1 : 0;
 	}	
-	return Object.keys(objs).sort(asc ? (a,b)=>order(a,b) : (a,b)=>order(b,a))
+	return Object.keys(objs).sort(asc ? (a,b)=>lt(a,b) : (a,b)=>lt(b,a))
 }
 /**
  * oneOfNested(obj) - in a nested set of objects "a" : { "b" : { "c" : { id:"a", type:"b", code:"c"}}}, return the first found inner value
