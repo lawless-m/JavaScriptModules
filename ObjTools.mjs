@@ -14,16 +14,14 @@ export function isObject(o) { return o && typeof o === 'object' && o.constructor
  * @param asc 
  * @returns an array of the keys, in the appropriate order
  */
+
 export function sortObjects(objs, by, asc) {
-	return asc ? Object.keys(objs).sort((a,b)=>{
+	function order(a,b) {
 		a = objs[a][by];
 		b = objs[b][by];
 		return a < b ? -1 : a > b ? 1 : 0;
-	}) : Object.keys(objs).sort((b,a)=>{ // reverse the order of the args to reverse the order of the result
-		a = objs[a][by];
-		b = objs[b][by];
-		return a < b ? -1 : a > b ? 1 : 0;
-	});
+	}	
+	return Object.keys(objs).sort(asc ? (a,b)=>order(a,b) : (a,b)=>order(b,a))
 }
 /**
  * oneOfNested(obj) - in a nested set of objects "a" : { "b" : { "c" : { id:"a", type:"b", code:"c"}}}, return the first found inner value
