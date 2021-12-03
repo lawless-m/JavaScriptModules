@@ -16,20 +16,11 @@ export function isObject(o) { return o && typeof o === 'object' && o.constructor
  */
 export function sortObjects(objs, by, asc) {
 	let keys = Object.keys(objs);
-	if (isNumeric(objs[keys[0]][by])) {
-		var sortf = function(a, b) {
-			a = parseInt(objs[a][by], 10);
-			b = parseInt(objs[b][by], 10);
-			return a < b ? -1 : a > b ? 1 : 0;
-		}
-	} else {
-		var sortf = function(a, b) {
-			a = objs[a][by];
-			b = objs[b][by];
-			return a < b ? -1 : a > b ? 1 : 0;
-		}
-	}
-	let sorted = keys.sort(sortf);
+	let sorted = keys.sort((a,b)=>{
+		a = objs[a][by];
+		b = objs[b][by];
+		return a < b ? -1 : a > b ? 1 : 0;
+	});
 	return asc ? sorted : sorted.reverse();
 }
 /**
