@@ -1,4 +1,4 @@
-/**
+/**  
  * create(tag, attribs, append) - create an HTMLNode with attribs and anything in the flattened list append appended
  * @param tag - html tag
  * @param attribs  - {id:"a", style:"color:red", onclick:()=>alert("hi")}
