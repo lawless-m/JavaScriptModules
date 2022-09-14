@@ -50,7 +50,7 @@ export function byData(data, src, value) { // might work ? :)
     return (value === undefined) ? 
         Array.from((src ? src : document).querySelectorAll(`[data-${data}]`))
         :
-        Array.from((src ? src : document).querySelectorAll(`[data-${data}="${value}"]`));
+        Array.from((src ? src : document).querySelectorAll(`[data-${data}='${value}']`));
 }
 
 /**
@@ -59,7 +59,7 @@ export function byData(data, src, value) { // might work ? :)
  * @param data - the data key
  * @returns - the value
  */
-export function data(el, data) {
+export function getData(el, data) {
     return el.attributes[`data-${data}`].value
 }
 
@@ -67,3 +67,12 @@ export function data(el, data) {
  * nbsp - the string to use a non-breaking space
  */
 export const nbsp = String.fromCharCode(160);
+
+/**
+ * removeChildren(e) - remove all the child nodes from an element
+ * @param e - parent element
+ * @returns undefined
+ */
+export function removeChildren(e) { 
+	while(e.firstChild) e.removeChild(e.firstChild); 
+}
