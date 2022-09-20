@@ -15,6 +15,12 @@ export function create(tag, attribs, append) {
         case "onclick":
             e.onclick = attribs[a];
             break;
+        case "oninput":
+            e.oninput = attribs[a];
+            break;
+        case "onblur":
+            e.onblur = attribs[a];
+            break;
         default :
             e.setAttribute(a, attribs[a])
         }
@@ -28,6 +34,11 @@ export function create(tag, attribs, append) {
     }
     return e
 }
+
+export function tr(attribs, append) { return create('tr', attribs, append); }
+export function th(attribs, append) { return create('th', attribs, append); }
+export function td(attribs, append) { return create('td', attribs, append); }
+
 
 /**
  * byId(id, src) - return the elementById from src or document by default
@@ -59,7 +70,7 @@ export function byData(data, src, value) { // might work ? :)
  * @param data - the data key
  * @returns - the value
  */
-export function getData(el, data) {
+export function getData(data, el) {
     return el.attributes[`data-${data}`].value
 }
 

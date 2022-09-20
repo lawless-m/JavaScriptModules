@@ -1,4 +1,4 @@
-function isNumeric(v) {	return !isNaN(parseFloat(v)); }
+
 
 /**
  * isObject(0) - is the supplied value an object
@@ -59,7 +59,7 @@ export function zeros(keys) {
  * select(objs, keys) - select just the given keys from the object 
  * @param objs 
  * @param keys 
- * @returns 
+ * @returns the selected items
  */
 export function select(objs, keys) {
 	let selected = {};
@@ -68,3 +68,21 @@ export function select(objs, keys) {
 	});
 	return selected;
 }
+
+/**
+ * combine(sub, dom) combined the objects, repeated key values are taken from dom
+ * @param sub - an Object
+ * @param dom - an Object
+ * @returns  the combined items
+ */
+export function combine(sub, dom) {
+	let combined = {};
+	Object.keys(sub).forEach(k=>{
+		combined[k] = sub[k];
+	});
+	Object.keys(dom).forEach(k=>{
+		combined[k] = dom[k];
+	});
+	return combined;
+}
+
