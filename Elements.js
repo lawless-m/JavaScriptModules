@@ -74,6 +74,13 @@ export function getData(data, el) {
     return el.attributes[`data-${data}`].value
 }
 
+export function getFirstData(col_key, src, col_value, data) {
+    let els = byData(col_key, src, col_value);
+    if(els) {
+        return getData(data, els[0]);
+    }
+}
+
 /**
  * nbsp - the string to use a non-breaking space
  */
@@ -86,4 +93,11 @@ export const nbsp = String.fromCharCode(160);
  */
 export function removeChildren(e) { 
 	while(e.firstChild) e.removeChild(e.firstChild); 
+}
+
+export function select_node(node) {
+    let rng = new Range();
+    rng.setStartBefore(node.firstChild);
+    rng.setEndAfter(node.firstChild);
+    document.getSelection().addRange(rng);
 }
