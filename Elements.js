@@ -35,6 +35,9 @@ export function create(tag, attribs, append) {
     return e
 }
 
+export function table(attribs, append) { return create('table', attribs, append); }
+export function thead(attribs, append) { return create('thead', attribs, append); }
+export function tbody(attribs, append) { return create('tbody', attribs, append); }
 export function tr(attribs, append) { return create('tr', attribs, append); }
 export function th(attribs, append) { return create('th', attribs, append); }
 export function td(attribs, append) { return create('td', attribs, append); }

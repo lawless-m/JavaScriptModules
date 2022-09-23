@@ -1,4 +1,6 @@
-import { getData, byData, getFirstData, byDataFirst } from './Elements.js';
+// import { getData, byData, getFirstData, byDataFirst } from './Elements.js';
+
+import { create, getData, byData, getFirstData, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
 
 /*
 
@@ -64,4 +66,52 @@ export function column_totals(grid, groups, cols) {
 
 export function byDataFirstInGroup(data, src, grp) {
     return byDataFirst(data, byDataFirst('rg', src, grp));
+}
+
+export class TD {
+    constructor() {
+        this.data = {};
+        this.text = '';
+    }
+}
+
+export class Row {
+    constructor(columns) {
+        this.cells = Array.from({length:columns}, (x,i) => new TD()); 
+    }
+}
+
+export class Grid {
+    
+    constructor(columns, rows) {
+        this.rows = Array.from({length:rows}, (x,i) => new Row(columns));
+    }
+
+    get nrows() {
+        return this.rows.length;
+    }
+
+    get ncols() {
+        return this.rows[0].cells.length;
+    }
+
+    asTable() {
+        let _table = table();
+        let _tr = tr();
+        for(let c = 0; c < this.ncols; c++) {
+            _tr.append(th());
+        }
+        _table.append(thead({}, [_tr]));
+        let _tbody = tbody();
+        for(let r = 0; r < this.nrows; r++) {    
+            _tr = tr({'data-rn':r});
+            for(let c = 0; c < this.ncols; c++) {
+                _tr.append(td({'data-c':c}, c));
+            }
+            _tbody.append(_tr);
+        }
+
+        _table.append(_tbody);
+        return _table;
+    }
 }
