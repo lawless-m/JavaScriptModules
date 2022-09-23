@@ -64,6 +64,13 @@ export function byData(data, src, value) { // might work ? :)
         Array.from((src ? src : document).querySelectorAll(`[data-${data}='${value}']`));
 }
 
+export function byDataFirst(data, src, value) {
+    let els = byData(data, src, value);
+    if(els.length > 0) {
+        return els[0];
+    }
+}
+
 /**
  * data(el, data) - return the value of the data element from the node
  * @param el - the node element

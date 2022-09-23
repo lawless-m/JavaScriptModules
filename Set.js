@@ -1,4 +1,4 @@
-import { isObject } from '/JavaScriptModules/ObjTools.js';
+import { isObject } from './ObjTools.js';
 
 /**
  * A class for maintaining a Set inside a list, where once can toggle membership
@@ -43,10 +43,12 @@ export class Set {
      * @param v 
      */
     insert(v) {
-        if(this.contains(v)) return;
+        let i = this.set.indexOf(v);
+        if(i != -1) return i;
         this.set.push(v);
-        this.length = this.set.length
-        this.empty = false
+        this.length = this.set.length;
+        this.empty = false;
+        return this.length-1;
     }
  
     /**
@@ -71,4 +73,5 @@ export class Set {
         this.length = this.set.length
         this.empty = this.length == 0
     }
+
 }
