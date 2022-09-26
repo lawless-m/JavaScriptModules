@@ -84,11 +84,15 @@ export function getData(data, el) {
     return el.attributes[`data-${data}`].value
 }
 
-export function getFirstData(col_key, src, col_value, data) {
+export function getDataFirst(col_key, src, col_value, data) {
     let els = byData(col_key, src, col_value);
     if(els) {
         return getData(data, els[0]);
     }
+}
+
+export function applyByData(fn, data, nodes, value) {
+    byData(data, nodes, value).map(fn);
 }
 
 /**
@@ -107,7 +111,24 @@ export function removeChildren(e) {
 
 export function select_node(node) {
     let rng = new Range();
-    rng.setStartBefore(node.firstChild);
-    rng.setEndAfter(node.firstChild);
-    document.getSelection().addRange(rng);
+    if (node.childNodes.length > 0) {
+        rng.setStartBefore(node.firstChild);
+        rng.setEndAfter(node.firstChild);
+        document.getSelection().addRange(rng);
+    }
+}
+
+export function setData(data, node, v) {
+    node.setAttribute(`data-${data}`, v);
+}
+
+export function setDataText(data, node, valtext) {
+    setData(data, node, valtext[0]);
+    node.textContent = valtext[1];
+}
+
+export function setDataFirst(data, nodes, val, text) {
+    let node = byDataFirst(data, nodes);
+    setDataText(data, node, [val, text]);
+    return node;
 }

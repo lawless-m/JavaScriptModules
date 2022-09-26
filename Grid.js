@@ -1,6 +1,6 @@
-// import { getData, byData, getFirstData, byDataFirst } from './Elements.js';
+// import { getData, byData, getDataFirst, byDataFirst, applyByData } from './Elements.js';
 
-import { create, getData, byData, getFirstData, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
+import { create, getData, byData, getDataFirst, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
 
 /*
 
@@ -11,14 +11,21 @@ However it uses querySelectorAll so it will work with childNodes
 */
 
 function float(txt) { if(txt == undefined || txt == '') return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
+function int(txt) { if(txt == undefined) return 0; try { return parseInt(txt, 10); } catch(e) {}; return 0;}
+
+export function reduceByData(fn, initval, data, nodes, val) {
+    return byData(data, nodes, val).reduce(fn, initval);
+}
 
 /*
 For entries matching data-${data} sum the value of those entries
 */
-export function sum_by_data(data, nodes) {
-    return byData(data, nodes).reduce((total, node) => { 
-        return total + float(getData(data, node)); }
-    , 0);
+export function sumByData(data, nodes, val) {
+    return reduceByData((total, node) => { return total + float(getData(data, node)); }, 0, data, nodes, val);
+}
+
+export function applyByData(fn, data, nodes, val) {
+    return byData(data, nodes, val).forEach(fn);
 }
 
 /*
@@ -28,7 +35,7 @@ then sum the first child nodes matching data-rc=coln
 */
 export function sum_rowgrp_by_column(nodes, rowgrp, coln, data) {
     return byData('rg', nodes, rowgrp).reduce((total,row) => { 
-        return total + float(getFirstData('c', row, coln, data)); }
+        return total + float(getDataFirst('c', row, coln, data)); }
     , 0);
 }
 
@@ -67,6 +74,11 @@ export function column_totals(grid, groups, cols) {
 export function byDataFirstInGroup(data, src, grp) {
     return byDataFirst(data, byDataFirst('rg', src, grp));
 }
+
+export function getRow(grid, rownum) {
+    return byDataFirst('rn', grid, rownum);
+}
+
 
 export class TD {
     constructor() {

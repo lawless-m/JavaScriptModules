@@ -6,17 +6,17 @@ export function pc(f) { return `${f}%`; }
 
 export function pc2(n, d) {
     if(n == undefined || d == undefined) {
-        return '';
+        return [0,''];
     }
     if(n == 0 && d == 0) {
-        return '';
+        return [0,''];
     }
     let p = dp(div(100*n,d),1);
     let t = `${p}%`;
     if(p == 100 || t.charAt(t.length-3) == '.') {
-        return t;
+        return [p, t];
     }
-    return `${p}.0%`;
+    return [p, `${p}.0%`];
 }
 
 export function comma(num, digits) {
