@@ -77,12 +77,16 @@ export function select(objs, keys) {
  */
 export function combine(sub, dom) {
 	let combined = {};
-	Object.keys(sub).forEach(k=>{
-		combined[k] = sub[k];
-	});
-	Object.keys(dom).forEach(k=>{
-		combined[k] = dom[k];
-	});
+	if(isObject(sub)) {
+		Object.keys(sub).forEach(k=>{
+			combined[k] = sub[k];
+		});
+	}
+	if(isObject(dom)) {
+		Object.keys(dom).forEach(k=>{
+			combined[k] = dom[k];
+		});
+	}
 	return combined;
 }
 

@@ -1,7 +1,7 @@
 // import { getData, byData, getDataFirst, byDataFirst, applyByData } from './Elements.js';
 
 import { create, getData, byData, getDataFirst, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
-
+import { combine } from './ObjTools.js';
 /*
 
 A Grid is originally a set of Rows and Columns in an HTML table.
@@ -71,12 +71,21 @@ export function column_totals(grid, groups, cols) {
     return tots;
 }
 
-export function byDataFirstInGroup(data, src, grp) {
-    return byDataFirst(data, byDataFirst('rg', src, grp));
+export function byDataFirstInGroup(data, src, grp, dataval) {
+    return byDataFirst(data, byDataFirst('rg', src, grp), dataval);
 }
 
 export function getRow(grid, rownum) {
     return byDataFirst('rn', grid, rownum);
+}
+
+export function tdd(classes, data, txt, attrs){
+    let dattr = {}
+    Object.keys(data).forEach(k => {
+        dattr[`data-${k}`] = data[k];
+    });
+    dattr['class'] = classes.join(' ');
+    return td(combine(attrs, dattr), txt);
 }
 
 

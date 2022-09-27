@@ -5,6 +5,14 @@
  * @param append  - a list of HTMLNodes (or text) to append, in order
  * @returns the HTMLNode
  */
+
+function esc(t) {
+    if (typeof t === 'string' || t instanceof String) {
+        
+        return t.replace('&', '&amp;').replace('<', '&lt;').replace('"', '&quot;')
+    }
+    return t;
+}
 export function create(tag, attribs, append) {
     let e = document.createElement(tag);
     for(let a in attribs) {
@@ -22,7 +30,7 @@ export function create(tag, attribs, append) {
             e.onblur = attribs[a];
             break;
         default :
-            e.setAttribute(a, attribs[a])
+            e.setAttribute(a, esc(attribs[a]));
         }
     }
     if(append) {
@@ -84,6 +92,12 @@ export function getData(data, el) {
     return el.attributes[`data-${data}`].value
 }
 
+function float(txt) { if(txt == undefined) return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
+
+export function getFloat(data, el) {
+    return float(el.attributes[`data-${data}`].value);
+}
+
 export function getDataFirst(col_key, src, col_value, data) {
     let els = byData(col_key, src, col_value);
     if(els) {
@@ -116,19 +130,34 @@ export function select_node(node) {
         rng.setEndAfter(node.firstChild);
         document.getSelection().addRange(rng);
     }
+    return node;
 }
 
-export function setData(data, node, v) {
+export function setData(data, node, v, apply) {
     node.setAttribute(`data-${data}`, v);
+    if(apply) {
+        apply(node, v);
+    }
 }
 
-export function setDataText(data, node, valtext) {
-    setData(data, node, valtext[0]);
+export function setDataText(data, node, valtext, apply) {
+    setData(data, node, valtext[0], apply);
     node.textContent = valtext[1];
+    return node;
 }
 
-export function setDataFirst(data, nodes, val, text) {
+export function setDataFirst(data, nodes, valtext, apply) {
     let node = byDataFirst(data, nodes);
-    setDataText(data, node, [val, text]);
+    setDataText(data, node, valtext, apply);
+    return node;
+}
+
+export function byDataPrev(data, node) {
+    for(node = node.previousSibling; node && node.getAttribute(`data-${data}`) == null; node = node.previousSibling);
+    return node;
+}
+
+export function byDataNext(data, node) {
+    for(node = node.nextSibling; node && node.getAttribute(`data-${data}`) == null; node = node.nextSibling);
     return node;
 }
