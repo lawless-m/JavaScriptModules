@@ -115,7 +115,11 @@ export class TR {
             });
         }
         dattr['class'] = classes.join(' ');
-        let t = td(combine(attrs, dattr), txt);
+        dattr = combine(attrs, dattr)
+        let t = td(dattr, txt);
+        if('colspan' in dattr) {
+            this.c += dattr.colspan -1 ;
+        }
         this.tr.append(t);
         if(apply) {
             apply(t);
