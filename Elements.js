@@ -1,3 +1,11 @@
+export function isString(t) {
+    return typeof t === 'string' || t instanceof String;
+}
+
+function esc(t) {
+    return isString(t) ? t.replace('&', '&amp;').replace('<', '&lt;').replace('"', '&quot;') : t;
+}
+
 /**  
  * create(tag, attribs, append) - create an HTMLNode with attribs and anything in the flattened list append appended
  * @param tag - html tag
@@ -6,13 +14,6 @@
  * @returns the HTMLNode
  */
 
-function esc(t) {
-    if (typeof t === 'string' || t instanceof String) {
-        
-        return t.replace('&', '&amp;').replace('<', '&lt;').replace('"', '&quot;')
-    }
-    return t;
-}
 export function create(tag, attribs, append) {
     let e = document.createElement(tag);
     for(let a in attribs) {

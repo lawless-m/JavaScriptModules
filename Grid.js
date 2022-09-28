@@ -1,7 +1,7 @@
 // import { getData, byData, getDataFirst, byDataFirst, applyByData } from './Elements.js';
 
 import { create, getData, byData, getDataFirst, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
-import { combine } from './ObjTools.js';
+import { combine, isObject } from './ObjTools.js';
 /*
 
 A Grid is originally a set of Rows and Columns in an HTML table.
@@ -88,6 +88,11 @@ export function tdd(classes, data, txt, attrs){
     return td(combine(attrs, dattr), txt);
 }
 
+export function trr(rn, rg, tds) {
+    return tr({'data-rn':rn, 'data-rg':rg}, tds);
+
+}
+
 
 export class TD {
     constructor() {
@@ -96,12 +101,32 @@ export class TD {
     }
 }
 
-export class Row {
-    constructor(columns) {
-        this.cells = Array.from({length:columns}, (x,i) => new TD()); 
+export class TR {
+    constructor(rn, rg) {
+        this.tr = trr(rn, rg);
+        this.c = 0;
+    }
+
+    td(classes, txt, data, attrs, apply) {
+        let dattr = {'data-c':this.c++};
+        if(isObject(data)) {
+            Object.keys(data).forEach(k => {
+                dattr[`data-${k}`] = data[k];
+            });
+        }
+        dattr['class'] = classes.join(' ');
+        let t = td(combine(attrs, dattr), txt);
+        this.tr.append(t);
+        if(apply) {
+            apply(t);
+        }
+    }
+
+    applyByData(fn, data, value) {
+        byData(data, this.tr, value).forEach(fn)
     }
 }
-
+/*
 export class Grid {
     
     constructor(columns, rows) {
@@ -136,3 +161,4 @@ export class Grid {
         return _table;
     }
 }
+*/
