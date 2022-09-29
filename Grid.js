@@ -1,6 +1,6 @@
 // import { getData, byData, getDataFirst, byDataFirst, applyByData } from './Elements.js';
 
-import { create, getData, byData, getDataFirst, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
+import { create, getData, getFloat, byData, getDataFirst, byDataFirst, byId, removeChildren, nbsp, table, thead, tbody, tr, th, td, select_node } from '/JavaScriptModules/Elements.js';
 import { combine, isObject } from './ObjTools.js';
 /*
 
@@ -93,6 +93,35 @@ export function trr(rn, rg, tds) {
 
 }
 
+export function num_fields(header) {
+    return getFloat('fields', byDataFirst('fields', header.parentNode));
+}
+
+export function row_col_grp(e) {
+    return {'rn':row_number(e), 'rg':row_group(e), 'c':column_number(e)};
+}
+
+export function row_col_grp_field(header, e) {
+    let rcgf = row_col_grp(e);
+    rcgf.field = column_field(header, rcgf.c);
+    return rcgf;
+}
+
+export function column_field(header, c) {
+    try { return getData('field', byDataFirst('c', byDataFirst('fields', header.parentNode), c)); } catch {}
+}
+
+export function row_group(e) {
+    try { return getFloat('rg', e.parentNode); } catch {};
+}
+
+export function row_number(e) {
+    try { return getFloat('rn', e.parentNode); } catch {};
+}
+
+export function column_number(e) {
+    try { return getFloat('c', e); } catch {};
+}
 
 export class TD {
     constructor() {
