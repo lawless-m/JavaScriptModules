@@ -30,6 +30,12 @@ export function create(tag, attribs, append) {
         case "onblur":
             e.onblur = attribs[a];
             break;
+        case "onkeyup":
+            e.onkeyup = attribs[a];
+            break;
+        case "onkeydown":
+            e.onkeydown = attribs[a];
+            break;
         default :
             e.setAttribute(a, esc(attribs[a]));
         }

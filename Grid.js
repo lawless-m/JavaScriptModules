@@ -79,18 +79,24 @@ export function getRow(grid, rownum) {
     return byDataFirst('rn', grid, rownum);
 }
 
-export function tdd(classes, data, txt, attrs){
-    let dattr = {}
-    Object.keys(data).forEach(k => {
-        dattr[`data-${k}`] = data[k];
-    });
-    dattr['class'] = classes.join(' ');
-    return td(combine(attrs, dattr), txt);
+function dataise(data) {
+    let dattr = {};
+    if(isObject(data)) {
+        Object.keys(data).forEach(k => {
+            dattr[`data-${k}`] = data[k];
+        });
+    }
+    return dattr;
 }
 
-export function trr(rn, rg, tds) {
-    return tr({'data-rn':rn, 'data-rg':rg}, tds);
+export function tdd(classes, data, txt, attrs){
+    let dattr = combine(attrs, dataise(data));
+    dattr.class = classes.join(' ');
+    return td(dattr, txt);
+}
 
+export function trr(rn, rg, tds, data, attrs) {
+    return tr(combine(dataise(combine(data, {'rn':rn, 'rg':rg})), attrs), tds);
 }
 
 export function num_fields(header) {
@@ -131,8 +137,9 @@ export class TD {
 }
 
 export class TR {
-    constructor(rn, rg) {
-        this.tr = trr(rn, rg);
+    constructor(data, attrs) {
+        this.data = data;
+        this.tr = tr(combine(dataise(data), attrs));
         this.c = 0;
     }
 
