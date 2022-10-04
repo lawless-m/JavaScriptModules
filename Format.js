@@ -4,13 +4,28 @@ export function int(txt) { if(txt == undefined) return 0; try { return parseInt(
 export function float(txt) { if(txt == undefined) return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
 export function pc(f) { return `${f}%`; }
 
+export function pcdp(f, digits) {
+    if(f == 1) {
+        return '100%';
+    }
+    f = dp(100 * f, digits);
+    let t = `${f}`;
+    if(digits == 0) {
+        return `${f}%`;
+    }
+    let zeros = '0'.repeat(digits);
+    let dot = t.indexOf('.');
+    if(dot < 0) {
+        return `${t}.${zeros}%`;
+    }
+    return t.substring(0, dot) + '.' + (t.substring(dot+1) + zeros).substring(0,digits) + '%';
+}
+
 export function pc2(n, d) {
     if(n == undefined || d == undefined) { return [0,'']; }
     if(n == 0 && d == 0) { return [0,'']; }
     let p = dp(div(100*n,d),1);
-    let t = `${p}%`;
-    if(p == 100 || t.charAt(t.length-3) == '.') { return [p, t]; }
-    return [p, `${p}.0%`];
+    return pcdp(p, 1);
 }
 
 export function comma(num, digits) {
