@@ -56,7 +56,13 @@ export function tbody(attribs, append) { return create('tbody', attribs, append)
 export function tr(attribs, append) { return create('tr', attribs, append); }
 export function th(attribs, append) { return create('th', attribs, append); }
 export function td(attribs, append) { return create('td', attribs, append); }
+export function link(onclick, attribs, append) { 
+    attribs.onclick = onclick;
+    attribs.href = '#';
+    return create('a', attribs, append); 
+}
 
+export function p(attribs, append) { return create('p', attribs, append); }
 
 /**
  * byId(id, src) - return the elementById from src or document by default
@@ -96,14 +102,12 @@ export function byDataFirst(data, src, value) {
  * @returns - the value
  */
 export function getData(data, el) {
-    return el.attributes[`data-${data}`].value
+    if(el) { return el.getAttribute(`data-${data}`); }
 }
 
 function float(txt) { if(txt == undefined) return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
 
-export function getFloat(data, el) {
-    return float(el.attributes[`data-${data}`].value);
-}
+export function getFloat(data, el) { return float(getData(data, el)); }
 
 export function getDataFirst(col_key, src, col_value, data) {
     let els = byData(col_key, src, col_value);
@@ -126,45 +130,62 @@ export const nbsp = String.fromCharCode(160);
  * @param e - parent element
  * @returns undefined
  */
-export function removeChildren(e) { 
-	while(e.firstChild) e.removeChild(e.firstChild); 
-}
+export function removeChildren(e) { while(e.firstChild) e.removeChild(e.firstChild); }
 
 export function select_node(node) {
-    let rng = new Range();
-    if (node.childNodes.length > 0) {
-        rng.setStartBefore(node.firstChild);
-        rng.setEndAfter(node.firstChild);
-        document.getSelection().addRange(rng);
+    if(node) {
+        let rng = new Range();
+        if (node.childNodes.length > 0) {
+            rng.setStartBefore(node.firstChild);
+            rng.setEndAfter(node.firstChild);
+            document.getSelection().addRange(rng);
+        }
     }
     return node;
 }
 
 export function setData(data, node, v, apply) {
-    node.setAttribute(`data-${data}`, v);
-    if(apply) {
-        apply(node, v);
+    if(node) {
+        node.setAttribute(`data-${data}`, v);
+        if(apply) {
+            apply(node, v);
+        }
     }
+    return node;
 }
 
 export function setDataText(data, node, valtext, apply) {
-    setData(data, node, valtext[0], apply);
-    node.textContent = valtext[1];
+    if(setData(data, node, valtext[0], apply)) {
+        node.textContent = valtext[1];
+    }
     return node;
 }
 
-export function setDataFirst(data, nodes, valtext, apply) {
-    let node = byDataFirst(data, nodes);
-    setDataText(data, node, valtext, apply);
-    return node;
+export function setDataTextFirst(data, nodes, valtext, apply) {
+    return setDataText(data, byDataFirst(data, nodes), valtext, apply);
 }
 
 export function byDataPrev(data, node) {
-    for(node = node.previousSibling; node && node.getAttribute(`data-${data}`) == null; node = node.previousSibling);
+    if(node) {
+        for(node = node.previousSibling; node && node.getAttribute(`data-${data}`) == null; node = node.previousSibling);
+    }
     return node;
 }
 
 export function byDataNext(data, node) {
-    for(node = node.nextSibling; node && node.getAttribute(`data-${data}`) == null; node = node.nextSibling);
+    if(node) {
+        for(node = node.nextSibling; node && node.getAttribute(`data-${data}`) == null; node = node.nextSibling);
+    }
     return node;
+}
+
+export function get_position( el ) {
+    var _x = 0;
+    var _y = 0;
+    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+          _x += el.offsetLeft - el.scrollLeft;
+          _y += el.offsetTop - el.scrollTop;
+          el = el.offsetParent;
+    }
+    return { top: _y, left: _x };
 }
