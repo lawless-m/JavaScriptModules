@@ -6,26 +6,25 @@ export function pc(f) { return `${f}%`; }
 
 export function pcdp(f, digits) {
     if(f == 1) {
-        return '100%';
+        return [1,'100%'];
     }
-    f = dp(100 * f, digits);
-    let t = `${f}`;
+    let p = dp(100 * f, digits);
+    let t = `${p}`;
     if(digits == 0) {
-        return `${f}%`;
+        return [f, `${p}%`];
     }
     let zeros = '0'.repeat(digits);
     let dot = t.indexOf('.');
     if(dot < 0) {
-        return `${t}.${zeros}%`;
+        return [f, `${t}.${zeros}%`];
     }
-    return t.substring(0, dot) + '.' + (t.substring(dot+1) + zeros).substring(0,digits) + '%';
+    return [f, t.substring(0, dot) + '.' + (t.substring(dot+1) + zeros).substring(0,digits) + '%'];
 }
 
 export function pc2(n, d) {
     if(n == undefined || d == undefined) { return [0,'']; }
     if(n == 0 && d == 0) { return [0,'']; }
-    let p = dp(div(100*n,d),1);
-    return pcdp(p, 1);
+    return pcdp(div(n,d), 1);
 }
 
 export function comma(num, digits) {
