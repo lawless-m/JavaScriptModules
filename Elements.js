@@ -189,3 +189,12 @@ export function get_position( el ) {
     }
     return { top: _y, left: _x };
 }
+
+HTMLElement.prototype.position = function() { 
+    return get_position(this);
+}
+
+
+HTMLElement.prototype.removeChildren = function() { 
+    removeChildren(this);
+}
