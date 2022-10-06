@@ -145,7 +145,7 @@ export function select_node(node) {
 }
 
 export function setData(data, node, v, apply) {
-    if(node) {
+    if(node && node.setAttribute) {
         node.setAttribute(`data-${data}`, v);
         if(apply) {
             apply(node, v);
@@ -167,14 +167,14 @@ export function setDataTextFirst(data, nodes, valtext, apply) {
 
 export function byDataPrev(data, node) {
     if(node) {
-        for(node = node.previousSibling; node && node.getAttribute(`data-${data}`) == null; node = node.previousSibling);
+        for(node = node.previousSibling; node && node.getAttribute && node.getAttribute(`data-${data}`) == null; node = node.previousSibling);
     }
     return node;
 }
 
 export function byDataNext(data, node) {
     if(node) {
-        for(node = node.nextSibling; node && node.getAttribute(`data-${data}`) == null; node = node.nextSibling);
+        for(node = node.nextSibling; node && node.getAttribute && node.getAttribute(`data-${data}`) == null; node = node.nextSibling);
     }
     return node;
 }
