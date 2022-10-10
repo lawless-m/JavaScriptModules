@@ -1,4 +1,4 @@
-import { tr, td } from '/JavaScriptModules/Elements.js';
+import { tr, td, th } from '/JavaScriptModules/Elements.js';
 
 import { combine, isObject } from './ObjTools.js';
 
@@ -263,16 +263,21 @@ export class TR {
         this.c = 0;
     }
 
-    td(classes, txt, data, attrs, apply) {
+    tdh(tagfn, classes, txt, data, attrs, apply) {
+
         let dattr = {'grid-c':this.c++};
         if(isObject(data)) {
             Object.keys(data).forEach(k => {
                 dattr[`grid-${k}`] = data[k];
             });
         }
-        dattr['class'] = classes.join(' ');
+        let cl = classes.join(' ');
+        if(cl != '') {
+            dattr['class'] = classes.join(' ');    
+        }
+        
         dattr = combine(attrs, dattr)
-        let t = td(dattr, txt);
+        let t = tagfn(dattr, txt);
         if('colspan' in dattr) {
             this.c += dattr.colspan -1 ;
         }
@@ -282,6 +287,13 @@ export class TR {
         }
     }
 
+    td(classes, txt, data, attrs, apply) {
+        this.tdh(td, classes, txt, data, attrs, apply);
+    }
+
+    th(classes, txt, data, attrs, apply) {
+        this.tdh(th, classes, txt, data, attrs, apply);
+    }
     applyByField(fn, field, value) {
         this.tr.by(field, value).forEach(fn)
     }

@@ -63,6 +63,9 @@ export function link(onclick, attribs, append) {
 }
 
 export function p(attribs, append) { return create('p', attribs, append); }
+export function div(attribs, append) { return create('div', attribs, append); }
+
+
 
 /**
  * byId(id, src) - return the elementById from src or document by default
@@ -71,7 +74,9 @@ export function p(attribs, append) { return create('p', attribs, append); }
  * @returns 
  */
 export function byId(id, src) {
-    return (src ? src : document).getElementById(id)
+    return (src ? src : document).querySelector(`#${id}`);
+
+    //return .getElementById(id)
 }
 
 /**
