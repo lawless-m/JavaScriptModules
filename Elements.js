@@ -65,7 +65,25 @@ export function link(onclick, attribs, append) {
 export function p(attribs, append) { return create('p', attribs, append); }
 export function div(attribs, append) { return create('div', attribs, append); }
 
+export function script(src, callback) { 
+    let e = create('script', {'src':src, 'async':true});
+    if(callback) {
+        e.addEventListener('load', callback, false);
+    }
+    return e;
+}
+export function module(src) { let e = script(src); e.type = 'module'; return e; }
 
+export function css(src, callback) {
+    let e = create("link", {'rel':'stylesheet', 'type':'text/css', 'href':src});
+    if(callback) {
+        e.addEventListener('load', callback, false);
+    }
+    return e;
+}
+
+export function ul(attribs, append) { return create('ul', attribs, append); }
+export function li(text, attribs) { return create('li', attribs, [text]); }
 
 /**
  * byId(id, src) - return the elementById from src or document by default
@@ -75,8 +93,6 @@ export function div(attribs, append) { return create('div', attribs, append); }
  */
 export function byId(id, src) {
     return (src ? src : document).querySelector(`#${id}`);
-
-    //return .getElementById(id)
 }
 
 /**
@@ -202,4 +218,12 @@ HTMLElement.prototype.position = function() {
 
 HTMLElement.prototype.removeChildren = function() { 
     removeChildren(this);
+}
+
+HTMLElement.prototype.hide = function() { 
+    this.style.display = 'none';
+}
+
+HTMLElement.prototype.show = function() { 
+    this.style.display = 'block';
 }
