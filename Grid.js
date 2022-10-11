@@ -190,7 +190,7 @@ HTMLElement.prototype.num_fields = function() {
 }
 
 HTMLElement.prototype.field = function(colnum) { 
-    return this.byFirst('c', colnum).get('field');
+    return this.byFirst('fields').byFirst('c', colnum).get('field');
 }
 
 export function numeric_only(evt) {
