@@ -18,7 +18,7 @@ export function xhrJson(url, callback) {
 export async function fetchJson(url, callback) {
   fetch(url)
   .then((response) => response.json())
-  .then((data) => { callback(data); });
+  .then((data) => { if(callback) { callback(data); }; });
 }
 
 export async function postJson(url, data, callback) {
