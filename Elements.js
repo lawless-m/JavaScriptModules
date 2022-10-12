@@ -84,6 +84,21 @@ export function css(src, callback) {
 
 export function ul(attribs, append) { return create('ul', attribs, append); }
 export function li(text, attribs) { return create('li', attribs, [text]); }
+export function img(src, alt, width, height) { 
+    let a = {'src':src};
+    if(alt == undefined) {
+        alt = 'image';
+    }
+    a.alt = alt;
+    a.title = alt;
+    if(width != undefined) {
+        a.width = width;
+    }
+    if(height != undefined) {
+        a.height = height;
+    }
+    return create('img', a);
+}
 
 /**
  * byId(id, src) - return the elementById from src or document by default
