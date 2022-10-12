@@ -28,5 +28,5 @@ export async function postJson(url, data, callback) {
       headers: {'Content-Type': 'application/json'}
   })
   .then((response) => response.json())
-  .then((data) => { callback(data); });
+  .then((data) => { if(callback) { callback(data); }});
 }
