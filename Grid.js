@@ -285,18 +285,23 @@ export class TR {
         if(apply) {
             apply(t);
         }
+
+        return t;
     }
 
     td(classes, txt, data, attrs, apply) {
-        this.tdh(td, classes, txt, data, attrs, apply);
+        return this.tdh(td, classes, txt, data, attrs, apply);
     }
 
     th(classes, txt, data, attrs, apply) {
-        this.tdh(th, classes, txt, data, attrs, apply);
+        return this.tdh(th, classes, txt, data, attrs, apply);
     }
+
+
     applyByField(fn, field, value) {
         this.tr.by(field, value).forEach(fn)
     }
+
 }
 /*
 export class Grid {
