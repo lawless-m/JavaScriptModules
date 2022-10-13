@@ -21,6 +21,9 @@ export function create(tag, attribs, append) {
         case "checked":
             e.checked = attribs[a]
             break;
+        case "disabled":
+            e.disabled = attribs[a]
+            break;
         case "onclick":
             e.onclick = attribs[a];
             break;
