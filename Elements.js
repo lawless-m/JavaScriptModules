@@ -229,19 +229,31 @@ export function get_position( el ) {
     return { top: _y, left: _x };
 }
 
-HTMLElement.prototype.position = function() { 
+HTMLElement.prototype.e_position = function() { 
     return get_position(this);
 }
 
 
-HTMLElement.prototype.removeChildren = function() { 
+HTMLElement.prototype.e_removeChildren = function() { 
     removeChildren(this);
+    return this;
 }
 
-HTMLElement.prototype.hide = function() { 
+HTMLElement.prototype.e_hide = function() { 
     this.style.display = 'none';
+    return this;
 }
 
-HTMLElement.prototype.show = function() { 
+HTMLElement.prototype.e_show = function() { 
     this.style.display = 'block';
+    return this;
+}
+
+HTMLElement.prototype.e_set = function(source) { 
+	if(typeof source === 'object' && source.constructor === Object) {
+		Object.keys(source).forEach(k=>{
+			this[k] = source[k];
+		});
+	}
+    return this;
 }
