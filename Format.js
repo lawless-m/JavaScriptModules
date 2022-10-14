@@ -1,5 +1,5 @@
-export function isNumeric(v) {	return !isNaN(parseFloat(v)); }
 
+export function isNumeric(v) {	return !isNaN(parseFloat(v)); }
 export function int(txt) { if(txt == undefined) return 0; try { return parseInt(txt, 10); } catch(e) {}; return 0;}
 export function float(txt) { if(txt == undefined) return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
 export function pc(f) { return `${f}%`; }
@@ -41,7 +41,7 @@ export function div(n, d) { return d != 0 ? n / d : 0; }
 
 export function neg_red(e, v) { 
     if(e.disabled) {
-        e.style.color = (v < 0) ? '#A00' : '#AAA'; 
+        e.style.color = (v < 0) ? '#600' : '#666'; 
     } else {
         e.style.color = (v < 0) ? 'red' : 'black'; 
     }
