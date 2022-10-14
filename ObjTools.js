@@ -89,11 +89,3 @@ export function combine(sub, dom) {
 	}
 	return combined;
 }
-
-export function make(target, source) {
-	if(isObject(source) && isObject(target)) {
-		Object.keys(source).forEach(k=>{
-			target[k] = source[k];
-		})
-	}
-}
