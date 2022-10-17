@@ -103,6 +103,14 @@ export function img(src, alt, width, height) {
     return create('img', a);
 }
 
+export function colgroup(append) {
+    return create('colgroup', {}, append);
+}
+
+export function col(attribs) {
+    return create('col', attribs);
+}
+
 /**
  * byId(id, src) - return the elementById from src or document by default
  * @param id 
