@@ -4,6 +4,10 @@ export function int(txt) { if(txt == undefined) return 0; try { return parseInt(
 export function float(txt) { if(txt == undefined) return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
 export function pc(f) { return `${f}%`; }
 
+export function float_eq(a, b, threshold = 0.01) {
+    return Math.abs(a - b) < threshold;
+}
+
 export function pcdp(f, digits) {
     if(f == 1) {
         return [1,'100%'];
@@ -22,9 +26,9 @@ export function pcdp(f, digits) {
 }
 
 export function pc2(n, d) {
-    if(n == undefined || d == undefined) { return [0,'']; }
-    if(n == 0 && d == 0) { return [0,'']; }
-    return pcdp(div(n,d), 1);
+    if(n == undefined || d == undefined) { return [0,'0.0%']; }
+    if(n == 0 && d == 0) { return [0,'0.0%']; }
+    return pcdp(fdiv(n,d), 1);
 }
 
 export function comma(num, digits) {
@@ -37,7 +41,29 @@ export function dp(num, digits) {
     return Math.round(scale*num)/scale;
 }
 
-export function div(n, d) { return d != 0 ? n / d : 0; }
+export function fdiv(n, d) { 
+    switch(true) {
+        case isNaN(n):
+        case isNaN(d):
+        case d == 0:
+            return 0;
+        default:
+            return n / d; 
+    }
+}
+
+export function mul(a, b) {
+    switch(true) {
+        case isNaN(a):
+        case isNaN(b):
+        case a == undefined:
+        case b == undefined:
+            return 0;
+        default:
+            return a * b;
+    }
+
+}
 
 export function neg_red(e, v) { 
     if(e.disabled) {
