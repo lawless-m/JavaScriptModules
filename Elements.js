@@ -59,9 +59,11 @@ export function tbody(attribs, append) { return create('tbody', attribs, append)
 export function tr(attribs, append) { return create('tr', attribs, append); }
 export function th(attribs, append) { return create('th', attribs, append); }
 export function td(attribs, append) { return create('td', attribs, append); }
-export function link(onclick, attribs, append) { 
-    attribs.onclick = onclick;
-    attribs.href = '#';
+export function link(attribs, append, onclick) {
+    if(onclick) {
+        attribs.onclick = onclick;
+        attribs.href = '#';
+    }
     return create('a', attribs, append); 
 }
 
@@ -264,4 +266,8 @@ HTMLElement.prototype.e_set = function(source) {
 		});
 	}
     return this;
+}
+
+HTMLElement.prototype.e_insertBefore = function(e) { 
+    this.parentNode.insertBefore(e, this.nextSibling);
 }
