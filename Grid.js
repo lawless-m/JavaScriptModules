@@ -76,7 +76,7 @@ HTMLElement.prototype.g_setDirty = function(counter, class_from) {
 
 HTMLElement.prototype.g_setClean = function(counter, class_to) { 
     let dirty = this.g_byDirty(counter);
-    if(dirty.removeAttribute) {
+    if(dirty && dirty.removeAttribute) {
         dirty.removeAttribute('grid-dirty');
         dirty.classList.replace('dirty', class_to);
     }
