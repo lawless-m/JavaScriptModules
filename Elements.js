@@ -69,6 +69,18 @@ export function link(attribs, append, onclick) {
 
 export function p(attribs, append) { return create('p', attribs, append); }
 export function div(attribs, append) { return create('div', attribs, append); }
+export function bold(txt) { return create('b', {}, txt); }
+export function italic(txt) { return create('i', {}, txt); }
+
+export function brs(txts) {
+    let els = [txts[0]];
+
+    txts.slice(1).forEach(t => {
+        els.push(create('br'));
+        els.push(t);
+    });
+    return els;
+}
 
 export function script(src, callback) { 
     let e = create('script', {'src':src, 'async':true});
