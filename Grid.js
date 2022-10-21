@@ -28,6 +28,10 @@ HTMLElement.prototype.g_set = function(field, value, apply) {
     return this;
 }
 
+HTMLElement.prototype.g_del = function(field) { 
+    this.removeAttribute(`grid-${field}`);
+}
+
 HTMLElement.prototype.g_setWithText = function(field, valtext, apply) { 
     this.g_set(field, valtext[0]);
     this.textContent = valtext[1];
@@ -76,8 +80,8 @@ HTMLElement.prototype.g_setDirty = function(counter, class_from) {
 
 HTMLElement.prototype.g_setClean = function(counter, class_to) { 
     let dirty = this.g_byDirty(counter);
-    if(dirty && dirty.removeAttribute) {
-        dirty.removeAttribute('grid-dirty');
+    if(dirty) {
+        dirty.g_del('dirty');
         dirty.classList.replace('dirty', class_to);
     }
     
