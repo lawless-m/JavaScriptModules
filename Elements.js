@@ -71,6 +71,16 @@ export function p(attribs, append) { return create('p', attribs, append); }
 export function div(attribs, append) { return create('div', attribs, append); }
 export function bold(txt) { return create('b', {}, txt); }
 export function italic(txt) { return create('i', {}, txt); }
+export function main(attribs, append) { return create('main', attribs, append); }
+export function inputfloat(attribs) { 
+    attribs.type = 'text';
+    attribs.inputmode = 'numeric';
+    attribs.pattern = '-?[1-9]+[0-9]*\.?[0-9]{2}';
+    attribs.onclick = e => { e.target.select() };
+    attribs.align='right;'
+    return create('input', attribs); 
+}
+
 
 export function brs(txts) {
     let els = [txts[0]];
