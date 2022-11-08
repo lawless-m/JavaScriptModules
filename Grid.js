@@ -190,12 +190,19 @@ HTMLElement.prototype.g_sumGroupsByColumn = function(rg, colnum, field) {
 }
 
 HTMLElement.prototype.g_select = function() { 
+    /*
     let rng = new Range();
     if (this.childNodes.length > 0) {
         rng.setStartBefore(this.firstChild);
         rng.setEndAfter(this.firstChild);
         document.getSelection().addRange(rng);
     }
+    */
+   
+    let range = document.createRange();
+    range.selectNodeContents(this);
+    //selection.removeAllRanges();
+    document.getSelection().addRange(range);
     return this;
 }
 
