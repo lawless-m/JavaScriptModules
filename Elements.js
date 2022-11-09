@@ -67,6 +67,7 @@ export function link(attribs, append, onclick) {
     return create('a', attribs, append); 
 }
 
+export function h2(attribs, append) { return create('h2', attribs, append); }
 export function p(attribs, append) { return create('p', attribs, append); }
 export function div(attribs, append) { return create('div', attribs, append); }
 export function bold(txt) { return create('b', {}, txt); }
@@ -75,7 +76,7 @@ export function main(attribs, append) { return create('main', attribs, append); 
 export function inputfloat(attribs) { 
     attribs.type = 'text';
     attribs.inputmode = 'numeric';
-    attribs.pattern = '-?[1-9]+[0-9]*\.?[0-9]{2}';
+    attribs.pattern = '-?[0-9]+(\.[0-9]{2})?';
     attribs.onclick = e => { e.target.select() };
     attribs.align='right;'
     return create('input', attribs); 
@@ -110,7 +111,7 @@ export function css(src, callback) {
 }
 
 export function ul(attribs, append) { return create('ul', attribs, append); }
-export function li(text, attribs) { return create('li', attribs, [text]); }
+export function li(attribs, append) { return create('li', attribs, append); }
 export function img(src, alt, width, height) { 
     let a = {'src':src};
     if(alt == undefined) {
@@ -145,6 +146,9 @@ export function byId(id, src) {
     return (src ? src : document).querySelector(`#${id}`);
 }
 
+export function byClass(clas, src) {
+    return (src ? src : document).getElementsByClassName(clas);
+}
 /**
  * byData(data, src, value) - return the HTMLNodes conforming to data-$data as an array from src
  * @param data - the data key to use
