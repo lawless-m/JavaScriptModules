@@ -39,6 +39,9 @@ export function create(tag, attribs, append) {
         case "onkeydown":
             e.onkeydown = attribs[a];
             break;
+        case "onpaste":
+            e.onpaste = attribs[a];
+            break;
         default :
             e.setAttribute(a, esc(attribs[a]));
         }
@@ -76,7 +79,6 @@ export function main(attribs, append) { return create('main', attribs, append); 
 export function inputfloat(attribs) { 
     attribs.type = 'text';
     attribs.inputmode = 'numeric';
-    attribs.pattern = '-?[0-9]+(\.[0-9]{2})?';
     attribs.onclick = e => { e.target.select() };
     attribs.align='right;'
     return create('input', attribs); 
