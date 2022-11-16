@@ -42,6 +42,9 @@ export function create(tag, attribs, append) {
         case "onpaste":
             e.onpaste = attribs[a];
             break;
+        case "open":
+            e.open = attribs[a] == "open";
+            break;
         default :
             e.setAttribute(a, esc(attribs[a]));
         }
@@ -83,6 +86,29 @@ export function inputfloat(attribs) {
     attribs.align='right;'
     return create('input', attribs); 
 }
+export function input(attribs) { 
+    attribs.type = 'text';
+    attribs.onclick = e => { e.target.select() };
+    attribs.align = 'left;'
+    return create('input', attribs); 
+}
+export function dialog(attribs, append) { return create('dialog', attribs, append); }
+export function form(attribs, append) { return create('form', attribs, append); }
+export function label(text, attribs, append) { 
+    if(append == undefined) {
+        append = text;
+    } else {
+        if(Array.isArray(append)) {
+            append.unshift(text);
+        } else {
+            append = [text, append];
+        }
+    }
+    return create('label', attribs, append); 
+}
+export function button(attribs, append) { return create('button', attribs, append); }
+
+
 
 
 export function brs(txts) {
@@ -152,17 +178,17 @@ export function byClass(clas, src) {
     return (src ? src : document).getElementsByClassName(clas);
 }
 /**
- * byData(data, src, value) - return the HTMLNodes conforming to data-$data as an array from src
- * @param data - the data key to use
+ * byData(key, src, value) - return the HTMLNodes conforming to data-$data as an array from src
+ * @param key - the key to use
  * @param src - the elements to start with, defaults to document
  * @param value - if given, also use =$value as a key
  * @returns 
  */
-export function byData(data, src, value) { // might work ? :)
+export function byData(key, src, value) { // might work ? :)
     return (value === undefined) ? 
-        Array.from((src ? src : document).querySelectorAll(`[data-${data}]`))
+        Array.from((src ? src : document).querySelectorAll(`[${key}]`))
         :
-        Array.from((src ? src : document).querySelectorAll(`[data-${data}='${value}']`));
+        Array.from((src ? src : document).querySelectorAll(`[${key}='${value}']`));
 }
 
 export function byDataFirst(data, src, value) {
