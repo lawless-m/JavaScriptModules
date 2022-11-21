@@ -19,10 +19,10 @@ export function create(tag, attribs, append) {
     for(let a in attribs) {
         switch(a) {
         case "checked":
-            e.checked = attribs[a]
+            e.checked = attribs[a];
             break;
         case "disabled":
-            e.disabled = attribs[a]
+            e.disabled = attribs[a];
             break;
         case "onclick":
             e.onclick = attribs[a];
@@ -108,7 +108,13 @@ export function label(text, attribs, append) {
 }
 export function button(attribs, append) { return create('button', attribs, append); }
 
+export function fieldset(attribs, append) { return create('fieldset', attribs, append); }
+export function legend(attribs, append) { return create('legend', attribs, append); }
 
+export function chk(attribs, txt) {
+    attribs.type = 'checkbox';
+    return create('input', attribs, txt);
+}
 
 
 export function brs(txts) {
@@ -162,6 +168,15 @@ export function colgroup(append) {
 
 export function col(attribs) {
     return create('col', attribs);
+}
+
+export function colwidths(ws, attribs) {
+    let cols = Array(ws.length).fill({});
+    for(let w = 0; w < length.ws; w++) {
+        cols[w] = col();
+        cols[w].style.width = ws[w];
+    }
+    return create('colgroup', attribs, cols);
 }
 
 /**
