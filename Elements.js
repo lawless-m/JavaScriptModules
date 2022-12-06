@@ -27,6 +27,9 @@ export function create(tag, attribs, append) {
         case "onclick":
             e.onclick = attribs[a];
             break;
+        case "ondblclick":
+            e.ondblclick = attribs[a];
+            break;
         case "oninput":
             e.oninput = attribs[a];
             break;
@@ -116,6 +119,8 @@ export function chk(attribs, txt) {
     return create('input', attribs, txt);
 }
 
+export function sup(txt) { return create('sup', {}, txt); }
+export function sub(txt) { return create('sub', {}, txt); }
 
 export function brs(txts) {
     let els = [txts[0]];
@@ -172,7 +177,7 @@ export function col(attribs) {
 
 export function colwidths(ws, attribs) {
     let cols = Array(ws.length).fill({});
-    for(let w = 0; w < length.ws; w++) {
+    for(let w = 0; w < ws.length; w++) {
         cols[w] = col();
         cols[w].style.width = ws[w];
     }
@@ -339,4 +344,13 @@ HTMLElement.prototype.e_set = function(source) {
 
 HTMLElement.prototype.e_insertBefore = function(e) { 
     this.parentNode.insertBefore(e, this.nextSibling);
+}
+
+HTMLElement.prototype.e_append = function(es) { 
+    if(es == undefined) return;
+    if(Array.isArray(es)) {
+        es.flat().forEach(a=>{this.append(a);})
+    } else {
+        this.append(es)
+    }
 }

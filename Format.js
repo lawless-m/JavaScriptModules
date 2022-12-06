@@ -31,6 +31,19 @@ export function pc2(n, d) {
     return pcdp(fdiv(n,d), 1);
 }
 
+export function fixed(t, digits) {
+    let zeros = '0'.repeat(digits);
+    let dot = t.indexOf('.');
+    if(dot < 0) {
+        return `${t}.${zeros}`;
+    }
+    return t.substring(0, dot) + '.' + (t.substring(dot+1) + zeros).substring(0,digits);
+}
+
+export function fixed2(t) { return fixed(t, 2); }
+
+export function fixed2comma(num) { return fixed(comma(num,2), 2); }
+
 export function comma(num, digits) {
     if(digits != undefined) { num = dp(num, digits); }
     return num.toLocaleString('en-GB'); 
