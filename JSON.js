@@ -17,7 +17,11 @@ export function xhrJson(url, callback) {
 
 export async function fetchJson(url, callback) {
   fetch(url)
-  .then((response) => response.json())
+  .then((response) => {
+    if(response.status == 200) {
+      return response.json();
+    } 
+  })
   .then((data) => { if(callback) { callback(data); }; });
 }
 
