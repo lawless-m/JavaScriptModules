@@ -34,3 +34,18 @@ export async function postJson(url, data, callback) {
   .then((response) => response.json())
   .then((data) => { if(callback) { callback(data); }});
 }
+
+/** Download contents as a file
+ * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+ */
+export function downloadBlob(filename, content, contenttype) {
+  // Create a blob
+  var blob = new Blob([content], { type: contenttype });
+  var url = URL.createObjectURL(blob);
+
+  // Create a link to download it
+  var pom = document.createElement('a');
+  pom.href = url;
+  pom.setAttribute('download', filename);
+  pom.click();
+}
