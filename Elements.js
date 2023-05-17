@@ -208,7 +208,7 @@ export function byData(key, src, value) { // might work ? :)
     return (value === undefined) ? 
         Array.from((src ? src : document).querySelectorAll(`[${key}]`))
         :
-        Array.from((src ? src : document).querySelectorAll(`[${key}='${value}']`));
+        Array.from((src ? src : document).querySelectorAll(`[${key}='${clean_data_value(value)}']`));
 }
 
 export function byDataFirst(data, src, value) {
@@ -253,7 +253,7 @@ export const nbsp = String.fromCharCode(160);
  * @param e - parent element
  * @returns undefined
  */
-export function removeChildren(e) { while(e.firstChild) e.removeChild(e.firstChild); }
+export function removeChildren(e) { if(e) { while(e.firstChild) e.removeChild(e.firstChild); } }
 
 export function select_node(node) {
     if(node) {
@@ -353,4 +353,8 @@ HTMLElement.prototype.e_append = function(es) {
     } else {
         this.append(es)
     }
+}
+
+export function clean_data_value(v) {
+    return v.replace('&', '');
 }
