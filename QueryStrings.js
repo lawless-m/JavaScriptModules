@@ -10,6 +10,12 @@ export function qs(key) {
         return ''
     }     
     return v; 
+}
 
+export function buildQS(base, params) {
+    let gets = Object.keys(params).map((key) => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+      }).join('&');
+    return `${base}?${gets}`;
 }
 
