@@ -31,8 +31,8 @@ export async function postJson(url, data, callback) {
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}
   })
-  .then((response) => response.json())
-  .then((data) => { if(callback) { callback(data); }});
+  .then(response => response.json())
+  .then(data => { if(callback) { callback(data); }});
 }
 
 /** Download contents as a file
