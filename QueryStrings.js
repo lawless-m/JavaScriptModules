@@ -4,10 +4,10 @@ const urlParams = new URLSearchParams(window.location.search);
  * @param key 
  * @returns whatever the value is, if any
  */
-export function qs(key) { 
+export function qs(key, def='') { 
     let v = urlParams.get(key);
     if(v == null) {
-        return ''
+        return def;
     }     
     return v; 
 }
