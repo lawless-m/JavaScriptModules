@@ -74,4 +74,8 @@ export class Set {
         this.empty = this.length == 0
     }
 
+    sort() {
+        this.set.sort();
+    }
+
 }
