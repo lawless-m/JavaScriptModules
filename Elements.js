@@ -110,7 +110,8 @@ export function label(text, attribs, append) {
     return create('label', attribs, append); 
 }
 export function button(attribs, append) { return create('button', attribs, append); }
-
+export function text(txt) { return document.createTextNode(txt); }
+export function br() { return create('br'); }
 export function fieldset(attribs, append) { return create('fieldset', attribs, append); }
 export function legend(attribs, append) { return create('legend', attribs, append); }
 
