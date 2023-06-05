@@ -1,3 +1,5 @@
+import { post } from './Requests';
+
 
 export function xhrJson(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -26,13 +28,7 @@ export async function fetchJson(url, callback) {
 }
 
 export async function postJson(url, data, callback) {
-  fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {'Content-Type': 'application/json'}
-  })
-  .then(response => response.json())
-  .then(data => { if(callback) { callback(data); }});
+    Post(url, 'application/json', JSON.stringify(data), callback);
 }
 
 /** Download contents as a file

@@ -127,7 +127,7 @@ export function brs(txts) {
     let els = [txts[0]];
 
     txts.slice(1).forEach(t => {
-        els.push(create('br'));
+        els.push(br());
         els.push(t);
     });
     return els;
@@ -359,3 +359,5 @@ HTMLElement.prototype.e_append = function(es) {
 export function clean_data_value(v) {
     return v.replace('&', '');
 }
+
+
