@@ -1,4 +1,4 @@
-import { post } from './Requests';
+import { Post } from './Requests.js';
 
 
 export function xhrJson(url, callback) {
