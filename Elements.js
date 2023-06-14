@@ -45,6 +45,9 @@ export function create(tag, attribs, append) {
         case "onpaste":
             e.onpaste = attribs[a];
             break;
+        case "onchange":
+            e.onchange = attribs[a];
+            break;
         case "open":
             e.open = attribs[a] == "open";
             break;
@@ -76,7 +79,10 @@ export function link(attribs, append, onclick) {
     return create('a', attribs, append); 
 }
 
+export function h1(attribs, append) { return create('h1', attribs, append); }
 export function h2(attribs, append) { return create('h2', attribs, append); }
+export function h3(attribs, append) { return create('h3', attribs, append); }
+export function h4(attribs, append) { return create('h4', attribs, append); }
 export function p(attribs, append) { return create('p', attribs, append); }
 export function div(attribs, append) { return create('div', attribs, append); }
 export function bold(txt) { return create('b', {}, txt); }
