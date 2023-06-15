@@ -16,6 +16,7 @@ function esc(t) {
 
 export function create(tag, attribs, append) {
     let e = document.createElement(tag);
+
     for(let a in attribs) {
         switch(a) {
         case "checked":
@@ -120,15 +121,16 @@ export function text(txt) { return document.createTextNode(txt); }
 export function br() { return create('br'); }
 export function fieldset(attribs, append) { return create('fieldset', attribs, append); }
 export function legend(attribs, append) { return create('legend', attribs, append); }
-
 export function chk(attribs, txt) {
     attribs.type = 'checkbox';
     return create('input', attribs, txt);
 }
-
+export function radio(attribs, txt) {
+    attribs.type = 'radio';
+    return create('input', attribs, txt);
+}
 export function sup(txt) { return create('sup', {}, txt); }
 export function sub(txt) { return create('sub', {}, txt); }
-
 export function brs(txts) {
     let els = [txts[0]];
 
