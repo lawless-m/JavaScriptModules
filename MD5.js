@@ -2,6 +2,10 @@ export function md5(d) {
     var r = M(V(Y(X(d),8*d.length)));
     return r.toLowerCase()
 };
+
+export function md5obj(o) {
+    return md5(JSON.stringify(o));
+}
     
 function M(d){
     for(var _,m="0123456789ABCDEF",f="",r=0;r<d.length;r++) {
