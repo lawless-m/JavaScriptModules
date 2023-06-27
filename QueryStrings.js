@@ -12,10 +12,13 @@ export function qs(key, def='') {
     return v; 
 }
 
-export function buildQS(base, params) {
-    let gets = Object.keys(params).map((key) => {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-      }).join('&');
-    return `${base}?${gets}`;
+export function buildQS(baseURL, parameters) {
+  const queryParams = [];
+  for (const key in parameters) {
+    if (parameters.hasOwnProperty(key)) {
+      queryParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(parameters[key])}`);
+    }
+  }
+  return `${baseURL}?${queryParams.join('&')}`;
 }
 
