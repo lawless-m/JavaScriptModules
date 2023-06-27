@@ -50,8 +50,7 @@ export function comma(num, digits) {
 }
 
 export function dp(num, digits) { 
-    let scale = digits===undefined ? 1 : Math.pow(10, digits);
-    return Math.round(scale*num)/scale;
+    return parseFloat(parseFloat(num).toFixed(digits));
 }
 
 export function fdiv(n, d) { 
