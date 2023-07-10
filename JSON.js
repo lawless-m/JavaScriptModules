@@ -1,5 +1,4 @@
-import { post } from './Requests';
-
+import { Post } from './Requests.js';
 
 export function xhrJson(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -15,7 +14,6 @@ export function xhrJson(url, callback) {
     };
     xhr.send();
 };
-
 
 export async function fetchJson(url, callback) {
   fetch(url)

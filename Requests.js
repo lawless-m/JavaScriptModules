@@ -8,7 +8,7 @@ export async function Post(url, datatype, data, callback) {
   .then(data => { if(callback) { callback(data); }});
 }
 
-export async plainPost(url, data, callback) {
+export async function plainPost(url, data, callback) {
 	Post(url, 'text/plain', data, callback);
 }
 
