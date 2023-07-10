@@ -16,6 +16,7 @@ function esc(t) {
 
 export function create(tag, attribs, append) {
     let e = document.createElement(tag);
+
     for(let a in attribs) {
         switch(a) {
         case "checked":
@@ -44,6 +45,9 @@ export function create(tag, attribs, append) {
             break;
         case "onpaste":
             e.onpaste = attribs[a];
+            break;
+        case "onchange":
+            e.onchange = attribs[a];
             break;
         case "open":
             e.open = attribs[a] == "open";
@@ -76,7 +80,10 @@ export function link(attribs, append, onclick) {
     return create('a', attribs, append); 
 }
 
+export function h1(attribs, append) { return create('h1', attribs, append); }
 export function h2(attribs, append) { return create('h2', attribs, append); }
+export function h3(attribs, append) { return create('h3', attribs, append); }
+export function h4(attribs, append) { return create('h4', attribs, append); }
 export function p(attribs, append) { return create('p', attribs, append); }
 export function div(attribs, append) { return create('div', attribs, append); }
 export function bold(txt) { return create('b', {}, txt); }
@@ -114,15 +121,16 @@ export function text(txt) { return document.createTextNode(txt); }
 export function br() { return create('br'); }
 export function fieldset(attribs, append) { return create('fieldset', attribs, append); }
 export function legend(attribs, append) { return create('legend', attribs, append); }
-
 export function chk(attribs, txt) {
     attribs.type = 'checkbox';
     return create('input', attribs, txt);
 }
-
+export function radio(attribs, txt) {
+    attribs.type = 'radio';
+    return create('input', attribs, txt);
+}
 export function sup(txt) { return create('sup', {}, txt); }
 export function sub(txt) { return create('sub', {}, txt); }
-
 export function brs(txts) {
     let els = [txts[0]];
 
