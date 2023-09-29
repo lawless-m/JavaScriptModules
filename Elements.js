@@ -207,7 +207,7 @@ export function byClass(clas, src) {
     return (src ? src : document).getElementsByClassName(clas);
 }
 /**
- * byData(key, src, value) - return the HTMLNodes conforming to data-$data as an array from src
+ * byData(key, src, value) - return the HTMLNodes conforming to $key as an array from src
  * @param key - the key to use
  * @param src - the elements to start with, defaults to document
  * @param value - if given, also use =$value as a key
@@ -233,18 +233,18 @@ export function byDataFirst(data, src, value) {
  * @param data - the data key
  * @returns - the value
  */
-export function getData(data, el) {
-    if(el) { return el.getAttribute(`data-${data}`); }
+export function getData(key, el) {
+    if(el) { return el.getAttribute(key); }
 }
 
 function float(txt) { if(txt == undefined) return 0.0; try { return parseFloat(txt, 10); } catch(e) {}; return 0;}
 
-export function getFloat(data, el) { return float(getData(data, el)); }
+export function getFloat(key, el) { return float(getData(key, el)); }
 
-export function getDataFirst(col_key, src, col_value, data) {
+export function getDataFirst(col_key, src, col_value, key) {
     let els = byData(col_key, src, col_value);
     if(els) {
-        return getData(data, els[0]);
+        return getData(key, els[0]);
     }
 }
 
@@ -276,9 +276,9 @@ export function select_node(node) {
     return node;
 }
 
-export function setData(data, node, v, apply) {
+export function setData(key, node, v, apply) {
     if(node && node.setAttribute) {
-        node.setAttribute(`data-${data}`, v);
+        node.setAttribute(key, v);
         if(apply) {
             apply(node, v);
         }
@@ -297,16 +297,16 @@ export function setDataTextFirst(data, nodes, valtext, apply) {
     return setDataText(data, byDataFirst(data, nodes), valtext, apply);
 }
 
-export function byDataPrev(data, node) {
+export function byDataPrev(key, node) {
     if(node) {
-        for(node = node.previousSibling; node && node.getAttribute && node.getAttribute(`data-${data}`) == null; node = node.previousSibling);
+        for(node = node.previousSibling; node && node.getAttribute && node.getAttribute(key) == null; node = node.previousSibling);
     }
     return node;
 }
 
-export function byDataNext(data, node) {
+export function byDataNext(key, node) {
     if(node) {
-        for(node = node.nextSibling; node && node.getAttribute && node.getAttribute(`data-${data}`) == null; node = node.nextSibling);
+        for(node = node.nextSibling; node && node.getAttribute && node.getAttribute(key) == null; node = node.nextSibling);
     }
     return node;
 }
