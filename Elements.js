@@ -14,7 +14,7 @@ function esc(t) {
  * @returns the HTMLNode
  */
 
-export function create(tag, attribs, append) {
+export function create(tag, attribs={}, append=[]) {
     let e = document.createElement(tag);
 
     for(let a in attribs) {
@@ -199,8 +199,8 @@ export function colwidths(ws, attribs) {
  * @param src 
  * @returns 
  */
-export function byId(id, src) {
-    return (src ? src : document).querySelector(`#${id}`);
+export function byId(id, src=document) {
+    return src.querySelector(`#${id}`);
 }
 
 export function byClass(clas, src) {
@@ -213,14 +213,14 @@ export function byClass(clas, src) {
  * @param value - if given, also use =$value as a key
  * @returns 
  */
-export function byData(key, src, value) { // might work ? :)
+export function byData(key, src=document, value=undefined) { // might work ? :)
     return (value === undefined) ? 
-        Array.from((src ? src : document).querySelectorAll(`[${key}]`))
+        Array.from((src.querySelectorAll(`[${key}]`)))
         :
-        Array.from((src ? src : document).querySelectorAll(`[${key}='${clean_data_value(value)}']`));
+        Array.from(src.querySelectorAll(`[${key}='${clean_data_value(value)}']`));
 }
 
-export function byDataFirst(data, src, value) {
+export function byDataFirst(data, src, value=undefined) {
     let els = byData(data, src, value);
     if(els.length > 0) {
         return els[0];
